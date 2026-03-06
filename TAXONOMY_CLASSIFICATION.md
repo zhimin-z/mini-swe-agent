@@ -34,8 +34,8 @@ This report classifies the mini-swe-agent according to the SWE Agent Taxonomy fr
 
 **Justification:** The agent uses ephemeral memory that persists only during a single session. The messages list (self.messages) maintains context during task execution but does not preserve knowledge across sessions. There is no long-term storage, episodic memory, or persistent state between runs.
 
-### AGENT TOOL: External Capabilities and Environmental Interactions
+### AGENT TOOLS: Capabilities and Retrieval Mechanisms
 
-**Labels:** FILE-MANAGEMENT, CODE-EDITING, STRUCTURAL-RETRIEVAL, VERSION-CONTROL, PYTHON-TOOLS, TESTING-TOOLS, SYSTEM-UTILITIES, TEXT-PROCESSING, SHELL-SCRIPTING
+**Labels:** KEYWORD-SEARCH, STRUCTURAL-SKELETON, FILE-PROCESSING, TESTING-TOOLS, PYTHON-TOOLS
 
-**Justification:** The agent has access to all bash commands for various operations: FILE-MANAGEMENT (ls, cat, find, mkdir, etc.), CODE-EDITING (sed, cat with heredocs for file creation), STRUCTURAL-RETRIEVAL (grep, find for code search), VERSION-CONTROL (git commands available in bash), PYTHON-TOOLS (python interpreters and pip), TESTING-TOOLS (pytest, test runners via bash), SYSTEM-UTILITIES (ps, env, export, etc.), TEXT-PROCESSING (sed, awk mentioned in config), SHELL-SCRIPTING (full bash shell with control structures). The agent executes actions via subprocess.run() with shell=True, providing access to the complete bash environment and all installed command-line tools.
+**Justification:** The mini-swe-agent only provides bash command execution via subprocess.run() with shell=True, without specialized tool implementations. Available tools depend on the bash environment: KEYWORD-SEARCH (grep, find for lexical search), STRUCTURAL-SKELETON (ls, find, tree for directory navigation and file discovery), FILE-PROCESSING (sed, cat with heredocs, standard file I/O for editing), TESTING-TOOLS (pytest and other test runners available via bash), PYTHON-TOOLS (direct python interpreter access). The agent does NOT have EMBEDDING-RAG (no semantic search), LINTING-TOOLS (no built-in linters), BUILD-TOOLS (no specialized build automation), CONTAINER-TOOLS (docker is environment, not tool), DEBUGGING-TOOLS (no debugger integration), or WEB-TOOLS (no browser automation). The config examples show sed for editing and nl/grep for file viewing.
